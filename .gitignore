@@ -1,0 +1,39 @@
+# =========================
+# Spring / Java Project .gitignore
+# =========================
+
+# --- Build directories (Maven & Gradle) ---
+**/target/
+**/build/
+**/out/
+
+# --- IDE-specific files ---
+# IntelliJ IDEA
+**/.idea/
+**/*.iml
+
+# Eclipse
+**/.classpath
+**/.project
+**/.settings/
+
+# VS Code
+**/.vscode/
+
+# --- Logs ---
+**/*.log
+
+# --- OS generated files ---
+.DS_Store
+Thumbs.db
+
+# --- Application config (environment-specific) ---
+**/application.properties
+**/application.yml
+**/hibernate.cfg.xml
+
+# --- Backup / temp files ---
+*.swp
+*.swo
+*~
+
