@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="
+         http://www.springframework.org/schema/beans
+         http://www.springframework.org/schema/beans/spring-beans.xsd
+         http://www.springframework.org/schema/aop
+         http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <aop:aspectj-autoproxy/>
+    <bean id="studentService" class="com.example.student.StudentServiceImpl"/>
+    <bean id="studentAspect" class="com.example.student.StudentAspect"/>
+    <aop:config>
+        <aop:aspect ref="studentAspect">
+            <aop:pointcut id="studentServicePointcut" expression="execution(* com.example.StudentService.*(..))"/>
+            <aop:before method="logBefore" pointcut-ref="studentServicePointcut"/>
+            <aop:after method="logAfter" pointcut-ref="studentServicePointcut"/>
+
+        </aop:aspect>
+    </aop:config>
+</beans>
