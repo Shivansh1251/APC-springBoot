@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Student Management</title>
+</head>
+  <body>
+   <h2>Student Management</h2>
+
+    <form method="post">
+      <label>Roll:</label>
+      <input type="text" name="roll" th:value="${student.roll}" required><br>
+
+      <label>Name:</label>
+      <input type="text" name="name" th:value="${student.name}" required><br>
+
+      <label>Marks:</label>
+      <input type="text" name="marks" th:value="${student.marks}" required><br>
+
+      <button formaction="/insert">Insert</button>
+</form>
+
+    
+  </body>
+</html>
