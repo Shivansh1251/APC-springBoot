@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Login — Simple Page</title>
+  <style>
+    :root{ --bg:#f3f4f6; --card:#ffffff; --accent:#2563eb; --muted:#6b7280; --danger:#ef4444 }
+    *{box-sizing:border-box}
+    body{margin:0; font-family:Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; background:linear-gradient(180deg,#e6eefc 0%,var(--bg) 100%); min-height:100vh; display:flex; align-items:center; justify-content:center; padding:24px}
+    .card{width:100%; max-width:420px; background:var(--card); border-radius:12px; box-shadow:0 6px 24px rgba(16,24,40,0.08); padding:28px}
+    h1{margin:0 0 6px 0; font-size:20px}
+    p.lead{margin:0 0 18px 0; color:var(--muted); font-size:14px}
+    label{display:block; font-size:13px; margin-bottom:6px}
+    input[type="email"], input[type="password"]{width:100%; padding:10px 12px; border:1px solid #e6e9ef; border-radius:8px; font-size:14px}
+    .row{display:flex; gap:10px; align-items:center}
+    .actions{display:flex; justify-content:space-between; align-items:center; margin-top:12px}
+    .btn{background:var(--accent); color:white; border:none; padding:10px 14px; border-radius:8px; cursor:pointer; font-weight:600}
+    .btn:disabled{opacity:0.6; cursor:not-allowed}
+    .muted{color:var(--muted); font-size:13px}
+    .small{font-size:13px}
+    .error{color:var(--danger); font-size:13px; margin-top:8px}
+    .footer{margin-top:18px; text-align:center; font-size:13px; color:var(--muted)}
+    .link{color:var(--accent); text-decoration:none}
+    .toggle-pass{background:none; border:none; cursor:pointer; font-size:13px; color:var(--accent)}
+    @media (max-width:420px){ body{padding:16px} .card{padding:20px} }
+  </style>
+</head>
+<body>
+  <main class="card" role="main" aria-labelledby="login-heading">
+    <h1 id="login-heading">Sign in to your account</h1>
+    <p class="lead">Welcome back — please enter your details.</p>
+
+    <form id="loginForm" novalidate>
+      <div style="margin-bottom:12px">
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" placeholder="you@example.com" required aria-required="true" />
+      </div>
+
+      <div style="margin-bottom:6px">
+        <label for="password">Password</label>
+        <div class="row">
+          <input id="password" name="password" type="password" placeholder="••••••••" required aria-required="true" style="flex:1" />
+          <button type="button" class="toggle-pass" id="togglePass" aria-controls="password" aria-pressed="false">Show</button>
+        </div>
+      </div>
+
+      <div class="actions" style="margin-top:10px">
+        <label class="row small"><input type="checkbox" id="remember" name="remember" style="margin-right:8px"/> Remember me</label>
+        <a href="#" class="link small">Forgot password?</a>
+      </div>
+
+      <div style="margin-top:16px">
+        <button class="btn" type="submit" id="submitBtn">Sign in</button>
+      </div>
+
+      <div id="error" class="error" role="alert" aria-live="polite" style="display:none"></div>
+    </form>
+
+    <div class="footer">New here? <a href="#" class="link">Create an account</a></div>
+  </main>
+
+  <script>
+    // Simple client-side validation & demo submit
+    const form = document.getElementById('loginForm');
+    const email = document.getElementById('email');
+    const password = document.getElementById('password');
+    const error = document.getElementById('error');
+    const submitBtn = document.getElementById('submitBtn');
+    const toggle = document.getElementById('togglePass');
+
+    toggle.addEventListener('click', () => {
+      const isPassword = password.type === 'password';
+      password.type = isPassword ? 'text' : 'password';
+      toggle.textContent = isPassword ? 'Hide' : 'Show';
+      toggle.setAttribute('aria-pressed', String(isPassword));
+    });
+
+    function showError(msg){ error.style.display = 'block'; error.textContent = msg; }
+    function clearError(){ error.style.display = 'none'; error.textContent = ''; }
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      clearError();
+
+      // basic checks
+      if(!email.value.trim()) return showError('Please enter your email.');
+      if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) return showError('Please enter a valid email address.');
+      if(password.value.length < 6) return showError('Password must be at least 6 characters long.');
+
+      // Simulate a successful login (replace with real request)
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Signing in...';
+
+      setTimeout(() => {
+        // on success - you can redirect or show a message
+        alert('Signed in successfully (demo).');
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Sign in';
+        form.reset();
+      }, 900);
+    });
+  </script>
+</body>
+</html>
